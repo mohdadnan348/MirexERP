@@ -1,0 +1,22 @@
+"use client";
+import {useCallback,useEffect,useState} from "react";
+import {api} from "@/lib/api/client";
+import {AlertCircle,CheckCircle2,Clock3,RefreshCw,Search,Check,XCircle} from "lucide-react";
+import "./LeaveWorkspace.css";
+type LeaveRow={_id:string;applicantType:string;studentId?:any;employeeId?:any;leaveType:string;startDate:string;endDate:string;totalDays?:number;reason:string;status:string;reviewRemarks?:string;rejectionReason?:string};
+const unwrap=(r:any)=>r?.data?.data??r?.data??r;
+const list=(v:any)=>Array.isArray(v)?v:Array.isArray(v?.items)?v.items:Array.isArray(v?.leaves)?v.leaves:[];
+const person=(v:any)=>v?`${v.firstName||""} ${v.lastName||""}`.trim()||v.employeeId||v.admissionNumber||"Applicant":"—";
+const date=(v?:string)=>v?new Date(v).toLocaleDateString("en-IN"):"—";
+export function LeaveWorkspace(){
+ const [items,setItems]=useState<LeaveRow[]>([]);const [loading,setLoading]=useState(true);const [error,setError]=useState("");const [notice,setNotice]=useState("");const [status,setStatus]=useState("PENDING");const [search,setSearch]=useState("");const [busy,setBusy]=useState("");
+ const load=useCallback(async()=>{setLoading(true);setError("");try{const r=await api.get("/leaves",{params:{page:1,limit:100,...(status?{status}:{})}});setItems(list(unwrap(r)));}catch(e:any){setError(e?.response?.data?.message||e?.message||"Leave records could not be loaded.");setItems([]);}finally{setLoading(false);}},[status]);
+ useEffect(()=>{void load();},[load]);
+ const act=async(row:LeaveRow,action:"approve"|"reject")=>{let reason="";if(action==="reject"){reason=window.prompt("Enter rejection reason (required):")||"";if(reason.trim().length<3)return;}else reason=window.prompt("Review remarks (optional):")||"";setBusy(row._id);setError("");setNotice("");try{await api.patch(`/leaves/${row._id}/${action}`,action==="reject"?{rejectionReason:reason}:{reviewRemarks:reason});setNotice(action==="approve"?"Leave approved successfully.":"Leave rejected successfully.");await load();}catch(e:any){setError(e?.response?.data?.message||e?.message||"Leave action failed.");}finally{setBusy("");}};
+ const filtered=items.filter(x=>`${person(x.studentId)} ${person(x.employeeId)} ${x.leaveType} ${x.reason}`.toLowerCase().includes(search.toLowerCase()));
+ return <main className="lw-page"><header className="lw-hero"><div><span>MIREXERP / HR & OPERATIONS</span><h1>Leave Management</h1><p>Review employee and student leave applications for this school.</p></div><button onClick={()=>void load()} disabled={loading}><RefreshCw size={16}/> Refresh</button></header>
+ {(error||notice)&&<div className={error?"lw-error":"lw-notice"}>{error?<AlertCircle size={17}/>:<CheckCircle2 size={17}/>}<span>{error||notice}</span></div>}
+ <section className="lw-toolbar"><label><Search size={16}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search applicant or reason"/></label><select value={status} onChange={e=>setStatus(e.target.value)}><option value="PENDING">Pending</option><option value="APPROVED">Approved</option><option value="REJECTED">Rejected</option><option value="CANCELLED">Cancelled</option><option value="">All statuses</option></select><span>{filtered.length} applications</span></section>
+ <section className="lw-card">{loading?<p className="lw-empty">Loading leave applications…</p>:filtered.length?<div className="lw-table-wrap"><table><thead><tr><th>Applicant</th><th>Type</th><th>Leave period</th><th>Days</th><th>Reason</th><th>Status</th><th>Decision</th></tr></thead><tbody>{filtered.map(x=><tr key={x._id}><td><b>{person(x.employeeId||x.studentId)}</b><small>{x.applicantType}</small></td><td>{x.leaveType}</td><td>{date(x.startDate)} – {date(x.endDate)}</td><td>{x.totalDays??"—"}</td><td className="lw-reason">{x.reason}</td><td><span className={`lw-status ${x.status.toLowerCase()}`}>{x.status}</span></td><td>{x.status==="PENDING"?<div className="lw-actions"><button disabled={!!busy} onClick={()=>void act(x,"approve")}><Check size={14}/> Approve</button><button disabled={!!busy} onClick={()=>void act(x,"reject")}><XCircle size={14}/> Reject</button></div>:<small>{x.reviewRemarks||x.rejectionReason||"—"}</small>}</td></tr>)}</tbody></table></div>:<p className="lw-empty"><Clock3 size={22}/> No leave applications found for this filter.</p>}</section>
+ <footer>Actions are authorized by the backend for School Admin and Principal. Teacher self-service leave submission belongs to the Teacher app role.</footer></main>;
+}

@@ -1,0 +1,4 @@
+"use client";
+import EntityManager,{type EntityConfig} from "@/components/phase2/EntityManager";
+const config:EntityConfig={title:"Employee Designations",singular:"Designation",endpoint:"/employees/designations",description:"Maintain school designations such as Principal, PGT, TGT, PRT, Accountant and Support Staff.",canDelete:false,fields:[{name:"name",label:"Designation name",required:true},{name:"code",label:"Designation code",required:true},{name:"department",label:"Department"},{name:"isActive",label:"Active",type:"select",options:[{label:"Active",value:"true"},{label:"Inactive",value:"false"}]}],columns:[{key:"name",label:"Designation"},{key:"code",label:"Code"},{key:"department",label:"Department"}]};
+export default function DesignationsPage(){return <EntityManager config={config}/>;}

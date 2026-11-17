@@ -1,0 +1,13 @@
+import React,{useEffect,useState} from "react";
+import {ActivityIndicator,Alert,FlatList,Pressable,Text,TextInput,View} from "react-native";
+import {AppHeader} from "@/components/common/AppHeader";
+import {ScreenContainer} from "@/components/common/ScreenContainer";
+import {parentsService} from "@/services/parents.service";
+import {styles} from "./ParentRequestsScreen.styles";
+export function ParentRequestsScreen(){
+ const [items,setItems]=useState<any[]>([]),[type,setType]=useState<"FEEDBACK"|"COMPLAINT"|"MEETING">("FEEDBACK"),[subject,setSubject]=useState(""),[message,setMessage]=useState(""),[loading,setLoading]=useState(true),[saving,setSaving]=useState(false);
+ const load=async()=>{try{const d=await parentsService.getMyRequests();setItems(Array.isArray(d)?d:[]);}catch(e:any){Alert.alert("Unable to load",e?.response?.data?.message||"Please try again.");}finally{setLoading(false);}};
+ useEffect(()=>{load();},[]);
+ const submit=async()=>{if(!subject.trim()||!message.trim()){Alert.alert("Required","Enter a subject and message.");return;}setSaving(true);try{await parentsService.createRequest({type,subject:subject.trim(),message:message.trim()});setSubject("");setMessage("");await load();Alert.alert("Submitted","Your request has been sent to the school.");}catch(e:any){Alert.alert("Error",e?.response?.data?.message||"Could not submit request.");}finally{setSaving(false);}};
+ return <View style={styles.root}><AppHeader title="School Requests"/><ScreenContainer><View style={styles.card}><Text style={styles.heading}>Send feedback or request</Text><View style={styles.row}>{(["FEEDBACK","COMPLAINT","MEETING"] as const).map(v=><Pressable key={v} onPress={()=>setType(v)} style={[styles.chip,type===v&&styles.active]}><Text style={[styles.chipText,type===v&&styles.activeText]}>{v}</Text></Pressable>)}</View><TextInput value={subject} onChangeText={setSubject} placeholder="Subject" style={styles.input}/><TextInput value={message} onChangeText={setMessage} placeholder="Describe your request" multiline style={[styles.input,styles.message]}/><Pressable onPress={submit} disabled={saving} style={styles.submit}>{saving?<ActivityIndicator color="#fff"/>:<Text style={styles.submitText}>Submit request</Text>}</Pressable></View><Text style={styles.heading}>Previous requests</Text>{loading?<ActivityIndicator/>:<FlatList data={items} keyExtractor={i=>i._id} renderItem={({item})=><View style={styles.item}><Text style={styles.itemTitle}>{item.subject}</Text><Text style={styles.meta}>{item.type} · {item.status}</Text><Text style={styles.body}>{item.message}</Text>{item.response?<Text style={styles.response}>School response: {item.response}</Text>:null}</View>}/>}</ScreenContainer></View>;
+}

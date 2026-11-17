@@ -1,0 +1,4 @@
+"use client";
+import EntityManager,{type EntityConfig} from "@/components/phase2/EntityManager";
+const department:EntityConfig={title:"Employee Departments",singular:"Department",endpoint:"/employees/departments",canDelete:false,description:"Configure school departments used by employee profiles. Designations are managed at /employees/designations.",fields:[{name:"name",label:"Department name",required:true},{name:"code",label:"Department code",required:true},{name:"description",label:"Description",type:"textarea"},{name:"isActive",label:"Active",type:"select",options:[{label:"Active",value:"true"},{label:"Inactive",value:"false"}]}],columns:[{key:"name",label:"Department"},{key:"code",label:"Code"},{key:"description",label:"Description"}]};
+export default function DepartmentsPage(){return <EntityManager config={department}/>;}

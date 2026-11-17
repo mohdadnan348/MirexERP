@@ -1,0 +1,57 @@
+.admissions-page{display:grid;gap:18px;padding:2px 0 30px;color:#25213d}
+.admissions-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}
+.admissions-kicker{color:#7953c7;font-size:9px;font-weight:850;letter-spacing:1.5px}
+.admissions-heading h1{margin:7px 0 5px;font-size:30px;font-weight:850;letter-spacing:-.8px}
+.admissions-heading p{margin:0;color:#89859a;font-size:12px}
+.admissions-head-actions{display:flex;gap:9px}
+.adm-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 14px;border:1px solid transparent;border-radius:10px;font-size:11px;font-weight:750;cursor:pointer;transition:.18s}
+.adm-btn:disabled{opacity:.55;cursor:wait}
+.adm-primary{background:linear-gradient(110deg,#7542d0,#3763dc);color:#fff;box-shadow:0 5px 14px #654bc42a}
+.adm-light{background:#fff;border-color:#e8e5ef;color:#5c5870}
+.admissions-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.adm-stat{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid #eae7f0;border-radius:14px;background:#fff}
+.adm-stat>span{display:grid;width:39px;height:39px;place-items:center;border-radius:12px;background:#f0edff;color:#7257c8}
+.adm-stat div{display:grid;gap:4px}.adm-stat small{color:#8c879d;font-size:10px}.adm-stat strong{font-size:21px;font-weight:850}
+.admissions-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px;border:1px solid #eae7f0;border-radius:13px;background:#fff}
+.adm-search,.adm-filter{display:flex;align-items:center;gap:8px;min-height:40px;padding:0 11px;border:1px solid #e9e6f0;border-radius:9px;color:#9994a8}
+.adm-search{flex:1;min-width:230px}.adm-search input{width:100%;border:0;outline:0;color:#39354d;font:inherit;font-size:11px}
+.adm-filter select{max-width:170px;border:0;outline:0;background:transparent;color:#5e5970;font-size:11px}
+.adm-count{margin-left:auto;color:#89859a;font-size:10px;font-weight:700}
+.admissions-table-card{overflow:hidden;border:1px solid #eae7f0;border-radius:15px;background:#fff;box-shadow:0 6px 20px #20183b06}
+.adm-table-scroll{overflow-x:auto}.adm-table{width:100%;border-collapse:collapse;text-align:left;white-space:nowrap}
+.adm-table th{padding:14px 15px;border-bottom:1px solid #efedf3;background:#faf9fc;color:#89859a;font-size:9px;font-weight:850;letter-spacing:.6px;text-transform:uppercase}
+.adm-table td{padding:13px 15px;border-bottom:1px solid #f1eff5;color:#5a566d;font-size:10px}.adm-table tr:last-child td{border-bottom:0}
+.adm-person{display:flex;align-items:center;gap:9px}.adm-person>span{display:grid;width:35px;height:35px;place-items:center;border-radius:11px;background:#eeeaff;color:#6d55c5;font-weight:850}
+.adm-person div{display:grid;gap:4px}.adm-person strong{color:#302c47;font-size:11px}.adm-person small{color:#9995a7;font-size:9px}
+.adm-status{display:inline-flex;padding:6px 8px;border-radius:7px;background:#f2f0f6;color:#706b80;font-size:9px;font-weight:800}
+.status-applied{background:#edf3ff;color:#4775c5}.status-under_review{background:#fff4e5;color:#b77a24}.status-documents_pending{background:#fff0e9;color:#c06a36}.status-approved{background:#eaf8ef;color:#26945e}.status-rejected,.status-cancelled{background:#fff0ef;color:#c0524a}.status-converted{background:#eeeaff;color:#7156c6}
+.adm-actions{display:flex;gap:5px}.adm-actions button{display:grid;width:29px;height:29px;place-items:center;border:1px solid #eeecf3;border-radius:8px;background:#fff;color:#77728a;cursor:pointer}.adm-actions button:hover{border-color:#d9d1f1;background:#f8f6ff;color:#6855c5}.adm-actions button:disabled{opacity:.4;cursor:wait}
+.adm-pagination{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-top:1px solid #efedf3;color:#8d899c;font-size:10px}.adm-pagination>div{display:flex;gap:7px}.adm-pagination button{display:flex;align-items:center;gap:4px;padding:7px 10px;border:1px solid #e8e5ef;border-radius:8px;background:#fff;color:#5e5970;font-size:10px;cursor:pointer}.adm-pagination button:disabled{opacity:.4;cursor:not-allowed}
+.adm-empty,.adm-loading{display:flex;min-height:260px;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:25px;text-align:center;color:#89859a;font-size:11px}.adm-empty>svg{color:#795dcc}.adm-empty h2{margin:3px 0;color:#302c47;font-size:17px}.adm-empty p{margin:0 0 8px}
+.adm-alert{display:flex;align-items:center;gap:9px;padding:11px 13px;border:1px solid #f1d4d1;border-radius:10px;background:#fff7f6;color:#a64740;font-size:11px}.adm-alert span{flex:1}.adm-alert button{border:0;background:none;color:inherit;font-weight:800;cursor:pointer}
+.adm-backdrop{position:fixed;z-index:1100;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:#17132b80;backdrop-filter:blur(4px)}
+.adm-modal{display:flex;width:min(900px,100%);max-height:94vh;flex-direction:column;overflow:hidden;border:1px solid #eeeaf5;border-radius:18px;background:#fff;box-shadow:0 24px 80px #110b2b40}
+.adm-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:20px 23px 15px;border-bottom:1px solid #f0eef5}
+.adm-modal-head h2{margin:7px 0 4px;color:#292540;font-size:20px;font-weight:850}.adm-modal-head p{margin:0;color:#9692a5;font-size:10px}
+.adm-close{display:grid;width:33px;height:33px;place-items:center;border:1px solid #ece9f2;border-radius:9px;background:#fff;color:#77738a;cursor:pointer}
+.adm-modal form{overflow-y:auto;padding:0 23px}
+.adm-form-section{padding:17px 0;border-bottom:1px solid #f0eef5}.adm-form-section h3{margin:0 0 12px;color:#3b3654;font-size:12px;font-weight:850}
+.adm-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 13px}
+.adm-form-grid label{display:grid;gap:6px;color:#77738a;font-size:10px;font-weight:700}
+.adm-form-grid input,.adm-form-grid select{width:100%;min-width:0;height:38px;padding:0 10px;border:1px solid #e8e5ef;border-radius:8px;outline:0;background:#fff;color:#39354d;font:inherit;font-size:11px}
+.adm-form-grid input:focus,.adm-form-grid select:focus{border-color:#8b78dc;box-shadow:0 0 0 3px #8068d51a}
+.adm-wide{grid-column:1/-1}.adm-section-title{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.adm-link-btn{display:inline-flex;align-items:center;gap:5px;border:0;background:none;color:#7057c9;font-size:10px;font-weight:800;cursor:pointer}
+.adm-guardian-card{margin-top:10px;padding:13px;border:1px solid #ebe7f3;border-radius:11px;background:#fcfbfe}
+.adm-guardian-title{display:flex;justify-content:space-between;margin-bottom:11px;color:#49435f;font-size:10px}.adm-guardian-title button{border:0;background:none;color:#c0524a;font-size:10px;cursor:pointer}
+.adm-checkbox{display:flex!important;align-items:center;gap:8px!important}.adm-checkbox input{width:15px;height:15px}
+.adm-modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:14px 0 18px;background:#fff}
+.adm-details{width:min(700px,100%)}.adm-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;padding:7px 23px;overflow:auto}
+.adm-detail-grid>div{display:grid;gap:5px;padding:13px 9px;border-bottom:1px solid #f0eef5}.adm-detail-grid small{color:#9995a8;font-size:9px}.adm-detail-grid strong{color:#3c3853;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.adm-details .adm-modal-footer{padding:12px 23px 18px;border-top:1px solid #f0eef5}
+.adm-spin{animation:adm-rotate .8s linear infinite}@keyframes adm-rotate{to{transform:rotate(360deg)}}
+@media(max-width:900px){.admissions-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.admissions-heading{align-items:flex-start;flex-direction:column}.admissions-head-actions{width:100%}.admissions-head-actions button{flex:1}.adm-search{min-width:100%}.adm-count{margin-left:auto}.adm-backdrop{padding:8px}.adm-modal{max-height:97vh}.adm-modal-head{padding:17px}.adm-modal form{padding:0 17px}.adm-detail-grid{padding:5px 17px}.adm-details .adm-modal-footer{padding:12px 17px 16px}}
+@media(max-width:480px){.adm-form-grid,.adm-detail-grid{grid-template-columns:1fr}.adm-wide{grid-column:auto}.admissions-stats{gap:8px}.adm-stat{padding:11px}.adm-stat>span{width:33px;height:33px}.adm-stat strong{font-size:18px}.adm-pagination{align-items:flex-start;flex-direction:column;gap:9px}}
+
+.adm-documents{border-top:1px solid #e2e8f0;margin-top:18px;padding-top:16px}.adm-documents>div:first-child{display:flex;align-items:center;justify-content:space-between}.adm-documents h3{font-size:15px;margin:0}.adm-document{display:flex;align-items:center;gap:8px;border-bottom:1px solid #edf1f5;padding:10px 0}.adm-document span{flex:1}.adm-document small{display:block;color:#64748b;margin-top:3px}.adm-error{color:#b91c1c;font-size:12px}

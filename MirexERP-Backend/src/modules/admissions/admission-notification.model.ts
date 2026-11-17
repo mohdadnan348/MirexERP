@@ -1,0 +1,3 @@
+import mongoose,{Schema} from "mongoose";
+const schema=new Schema({schoolId:{type:Schema.Types.ObjectId,ref:"School",required:true,index:true},applicationId:{type:Schema.Types.ObjectId,ref:"Admission",required:true,index:true},event:{type:String,required:true},channel:{type:String,enum:["SMS","WHATSAPP"],required:true},recipient:{type:String,required:true},status:{type:String,enum:["PENDING","SENT","FAILED"],default:"PENDING"},providerResponse:Schema.Types.Mixed,error:String,sentAt:Date},{timestamps:true});
+export default mongoose.models.AdmissionNotification || mongoose.model("AdmissionNotification",schema);

@@ -1,0 +1,6 @@
+import mongoose,{Document,Schema,Types} from "mongoose";
+export type TimetableRoomType="CLASSROOM"|"SCIENCE_LAB"|"COMPUTER_LAB"|"LIBRARY"|"ACTIVITY_ROOM"|"AUDITORIUM"|"OTHER";
+export interface ITimetableRoom extends Document {schoolId:Types.ObjectId;name:string;roomNumber:string;roomType:TimetableRoomType;capacity?:number;building?:string;floor?:string;isActive:boolean;createdBy:Types.ObjectId;updatedBy?:Types.ObjectId;}
+const schema=new Schema<ITimetableRoom>({schoolId:{type:Schema.Types.ObjectId,ref:"School",required:true,index:true},name:{type:String,required:true,trim:true,maxlength:80},roomNumber:{type:String,required:true,trim:true,uppercase:true,maxlength:30},roomType:{type:String,enum:["CLASSROOM","SCIENCE_LAB","COMPUTER_LAB","LIBRARY","ACTIVITY_ROOM","AUDITORIUM","OTHER"],default:"CLASSROOM"},capacity:{type:Number,min:1},building:{type:String,trim:true,maxlength:80},floor:{type:String,trim:true,maxlength:30},isActive:{type:Boolean,default:true},createdBy:{type:Schema.Types.ObjectId,ref:"User",required:true},updatedBy:{type:Schema.Types.ObjectId,ref:"User"}},{timestamps:true,versionKey:false,collection:"timetable_rooms"});
+schema.index({schoolId:1,roomNumber:1},{unique:true});
+export default mongoose.models.TimetableRoom||mongoose.model<ITimetableRoom>("TimetableRoom",schema);

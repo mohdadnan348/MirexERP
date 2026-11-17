@@ -1,0 +1,14 @@
+import { Request, Response } from "express";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { AppError } from "../../utils/AppError";
+import { sendSuccess } from "../../utils/apiResponse";
+import { settingsDashboardService, listSchoolUsersService, getSecurityPolicyService, updateSecurityPolicyService, listActiveSessionsService, revokeSessionService, revokeUserSessionsService, listSchoolAuditLogsService } from "./settings-advanced.service";
+const actor = (req: Request) => { if (!req.user?.schoolId) throw new AppError("School context is required", 400); return { userId: String(req.user._id || req.user.id), schoolId: String(req.user.schoolId), role: req.user.role }; };
+export const getSettingsDashboard = asyncHandler(async (req: Request, res: Response) => sendSuccess(res, "Settings dashboard fetched", await settingsDashboardService(actor(req))));
+export const getSettingsUsers = asyncHandler(async (req: Request, res: Response) => sendSuccess(res, "School users fetched", await listSchoolUsersService(actor(req), typeof req.query.search === "string" ? req.query.search : undefined, typeof req.query.role === "string" ? req.query.role : undefined)));
+export const getSecurityPolicy = asyncHandler(async (req: Request, res: Response) => sendSuccess(res, "Security policy fetched", await getSecurityPolicyService(actor(req))));
+export const updateSecurityPolicy = asyncHandler(async (req: Request, res: Response) => sendSuccess(res, "Security policy updated", await updateSecurityPolicyService(actor(req), req.body)));
+export const getActiveSessions = asyncHandler(async (req: Request, res: Response) => sendSuccess(res, "Active refresh sessions fetched", await listActiveSessionsService(actor(req))));
+export const revokeActiveSession = asyncHandler(async (req: Request, res: Response) => sendSuccess(res, "Session revoked", await revokeSessionService(actor(req), req.params.sessionId)));
+export const revokeUserSessions = asyncHandler(async (req: Request, res: Response) => sendSuccess(res, "User sessions revoked", await revokeUserSessionsService(actor(req), req.params.userId)));
+export const getSchoolAuditLogs = asyncHandler(async (req: Request, res: Response) => { const page = Math.max(1, Number(req.query.page) || 1); const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 50)); return sendSuccess(res, "School audit logs fetched", await listSchoolAuditLogsService(actor(req), page, limit)); });

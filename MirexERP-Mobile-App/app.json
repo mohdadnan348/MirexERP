@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "MirexERP",
+    "slug": "mirexerp",
+    "scheme": "mirexerp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/app-icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      ["expo-notifications", { "icon": "./assets/notification-icon.png", "color": "#7138D5" }]
+    ],
+    "android": {
+      "package": "com.mirexerp.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#251052",
+        "foregroundImage": "./assets/adaptive-icon.png"
+      }
+    },
+    "ios": { "bundleIdentifier": "com.mirexerp.mobile" },
+    "experiments": { "typedRoutes": true }
+  }
+}

@@ -1,0 +1,8 @@
+.forgot-page { min-height:100vh; display:grid; place-items:center; padding:24px; background:#f7f5ff; }
+.forgot-card { width:min(100%,420px); padding:36px; background:#fff; border:1px solid #ebe7f5; border-radius:22px; box-shadow:0 16px 50px #27145b12; }
+.forgot-card h1 { margin:0 0 8px; }.forgot-card p { color:#77758b; }
+.forgot-card form { display:grid; gap:14px; margin-top:24px; }.forgot-card label { display:grid; gap:8px; }
+.forgot-card input { height:46px; border:1px solid #e6e2ef; border-radius:10px; padding:0 12px; }
+.forgot-card button { height:46px; border:0; border-radius:10px; color:#fff; background:#7138d5; font-weight:700; }
+
+.forgot-success,.forgot-error{display:flex;gap:8px;align-items:center;padding:10px;border-radius:8px;font-size:12px;margin:14px 0}.forgot-success{background:#edf9f2;color:#25814b}.forgot-error{background:#fff1f0;color:#b83e3e}.forgot-card button:disabled{opacity:.6}

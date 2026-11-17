@@ -1,0 +1,20 @@
+import { Router } from "express";
+import { authenticate } from "../../middleware/authenticate";
+import { authorize } from "../../middleware/authorize";
+import { tenantContext, requireTenant } from "../../middleware/tenantContext";
+import * as controller from "./class-section.controller";
+
+const router = Router();
+const admins = ["SCHOOL_ADMIN", "PRINCIPAL"];
+router.use(authenticate, tenantContext, requireTenant);
+router.get("/reports", authorize(...admins), controller.reports);
+router.get("/my-assignments", authorize("TEACHER"), controller.myAssignments);
+router.get("/eligible-students", authorize(...admins), controller.eligibleStudents);
+router.get("/history", authorize(...admins), controller.history);
+router.get("/classes/:classId/students", authorize(...admins, "TEACHER"), controller.classStudents);
+router.get("/sections/:sectionId/students", authorize(...admins, "TEACHER"), controller.sectionStudents);
+router.post("/allocate", authorize(...admins), controller.allocate);
+router.post("/students/:studentId/transfer", authorize(...admins), controller.transfer);
+router.post("/promote", authorize(...admins), controller.promote);
+router.post("/subject-teachers", authorize(...admins), controller.assignSubjectTeacher);
+export default router;

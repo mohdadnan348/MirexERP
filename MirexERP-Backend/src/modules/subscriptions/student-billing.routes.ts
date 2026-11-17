@@ -1,0 +1,20 @@
+import { Router } from "express";
+import { authenticate } from "../../middleware/authenticate";
+import { authorize } from "../../middleware/authorize";
+import { tenantContext } from "../../middleware/tenantContext";
+import { getStudentPricing, updateStudentPricing, getBillingPreview, createStudentBillingInvoice, getStudentBillingInvoices, updateSchoolPricing, manualSubscriptionActivation, getSaasDashboard, setFeatureEntitlement, createSaasPaymentOrder, verifySaasPayment } from "./student-billing.controller";
+
+const router = Router();
+router.use(authenticate, tenantContext);
+router.get("/pricing", authorize("SUPER_ADMIN", "SCHOOL_ADMIN"), getStudentPricing);
+router.patch("/pricing", authorize("SUPER_ADMIN"), updateStudentPricing);
+router.get("/billing-preview", authorize("SUPER_ADMIN", "SCHOOL_ADMIN"), getBillingPreview);
+router.post("/billing-invoices", authorize("SUPER_ADMIN"), createStudentBillingInvoice);
+router.get("/billing-invoices", authorize("SUPER_ADMIN", "SCHOOL_ADMIN"), getStudentBillingInvoices);
+router.put("/school-pricing", authorize("SUPER_ADMIN"), updateSchoolPricing);
+router.post("/manual-activation", authorize("SUPER_ADMIN"), manualSubscriptionActivation);
+router.get("/saas-dashboard", authorize("SUPER_ADMIN"), getSaasDashboard);
+router.put("/features", authorize("SUPER_ADMIN"), setFeatureEntitlement);
+router.post("/billing-invoices/:invoiceId/payment-order", authorize("SCHOOL_ADMIN"), createSaasPaymentOrder);
+router.post("/billing-invoices/:invoiceId/verify-payment", authorize("SCHOOL_ADMIN"), verifySaasPayment);
+export default router;

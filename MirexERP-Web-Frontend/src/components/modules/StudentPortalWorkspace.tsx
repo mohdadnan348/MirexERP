@@ -1,0 +1,8 @@
+"use client";
+import {useState} from "react";
+import {api} from "@/lib/api/client";
+export function StudentPortalWorkspace(){
+ const [studentId,setStudentId]=useState(""),[userId,setUserId]=useState(""),[busy,setBusy]=useState(false),[message,setMessage]=useState("");
+ const link=async()=>{setBusy(true);setMessage("");try{await api.post("/student-portal/link-account",{studentId,userId});setMessage("Student login linked. Student can now sign in with their email or admission number and existing password.");setStudentId("");setUserId("");}catch(e:any){setMessage(e?.response?.data?.message||"Unable to link account.");}finally{setBusy(false);}};
+ return <main style={{padding:24,display:"grid",gap:18,maxWidth:900}}><div><h1 style={{fontSize:26,fontWeight:750}}>Student Portal Access</h1><p style={{color:"#777084"}}>Link an existing Student record to an existing STUDENT login account. This does not create duplicate student or user records.</p></div><section style={{display:"grid",gap:12,padding:18,border:"1px solid #e8e3ef",borderRadius:12,background:"#fff"}}><label>Student MongoDB ID<input value={studentId} onChange={e=>setStudentId(e.target.value)} placeholder="Student _id"/></label><label>Existing User MongoDB ID<input value={userId} onChange={e=>setUserId(e.target.value)} placeholder="User _id (role STUDENT)"/></label><button disabled={busy||!studentId||!userId} onClick={link}>{busy?"Linking…":"Link student login"}</button>{message&&<p>{message}</p>}</section><p style={{fontSize:13,color:"#777084"}}>Student ID login is supported only after school administration links the account. Password creation and reset continue to use the existing authentication and password-reset workflow.</p></main>;
+}
